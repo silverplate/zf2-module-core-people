@@ -225,6 +225,23 @@ implements InputFilterAwareInterface, ArraySerializableInterface
         $this->_inputFilter = $_inputFilter;
     }
 
+    public function getUserInputFilter()
+    {
+        $filter = new InputFilter();
+
+        $input = new Input('login');
+        $input->getValidatorChain()->attach(new Validator\NotEmpty());
+        $filter->add($input);
+
+        if (!$this->getId()) {
+            $input = new Input('password');
+            $input->getValidatorChain()->attach(new Validator\NotEmpty());
+            $filter->add($input);
+        }
+
+        return $filter;
+    }
+
     /**
      * Retrieve input filter
      *
@@ -233,20 +250,8 @@ implements InputFilterAwareInterface, ArraySerializableInterface
     public function getInputFilter()
     {
         if (null == $this->_inputFilter) {
-            $access = new InputFilter();
-
-            $input = new Input('login');
-            $input->getValidatorChain()->attach(new Validator\NotEmpty());
-            $access->add($input);
-
-            if (!$this->getId()) {
-                $input = new Input('password');
-                $input->getValidatorChain()->attach(new Validator\NotEmpty());
-                $access->add($input);
-            }
-
             $filter = new InputFilter();
-            $filter->add($access, 'user');
+            $filter->add($this->getUserInputFilter(), 'user');
 
             $person = new Person;
             $filter->add($person->getInputFilter(), 'person');
