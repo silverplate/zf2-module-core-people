@@ -70,12 +70,6 @@ implements InputFilterAwareInterface, ArraySerializableInterface
     /** @var string */
     protected $_position;
 
-    /**
-     * @var string
-     * @todo Is it needed here or implement through sources?
-     */
-    protected $_email;
-
     /** @var string */
     protected $_birthDay;
 
@@ -185,22 +179,6 @@ implements InputFilterAwareInterface, ArraySerializableInterface
     public function getCreationTime()
     {
         return $this->_creationTime;
-    }
-
-    /**
-     * @param string $_email
-     */
-    public function setEmail($_email)
-    {
-        $this->_email = $_email;
-    }
-
-    /**
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->_email;
     }
 
     /**
@@ -395,10 +373,6 @@ implements InputFilterAwareInterface, ArraySerializableInterface
             $input->getValidatorChain()->attach(new Validator\NotEmpty());
             $filter->add($input);
 
-            $input = new Input('email');
-            $input->setRequired(false);
-            $filter->add($input);
-
             $input = new Input('birth_year');
             $input->getValidatorChain()->attach(new Int());
             $input->setRequired(false);
@@ -511,7 +485,6 @@ implements InputFilterAwareInterface, ArraySerializableInterface
             'birth_day',
             'birth_year',
             'company_id',
-            'email',
             'nickname',
             'object_id',
             'object_type_id',

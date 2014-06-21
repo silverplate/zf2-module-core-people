@@ -87,10 +87,6 @@ abstract class AbstractPerson extends AbstractForm
         $ele->setOptions(array('description' => 'или&nbsp;должность'));
         $this->add($ele);
 
-        $ele = new Element\Email('email');
-        $ele->setLabel('Почта');
-        $this->add($ele);
-
         $ele = new Element\Text('birth_day');
         $ele->setLabel('День и месяц рождения');
         $ele->setOptions(array('description' => 'ДД.ММ, например 01.12'));
