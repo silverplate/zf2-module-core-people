@@ -94,12 +94,17 @@ class User extends AbstractForm implements ServiceLocatorAwareInterface
         $accessFs->add($ele);
     }
 
+    protected function _getUser()
+    {
+        return $this->getObject();
+    }
+
     protected function _isUserUnique()
     {
         /** @var \CorePeople\Mapper\User $mapper */
         $mapper = $this->getServiceLocator()->get('\CorePeople\Mapper\User');
 
-        if (!$mapper->isUserUnique($this->getObject())) {
+        if (!$mapper->isUserUnique($this->_getUser())) {
             $login = $this->get('user')->get('login');
             $messages = $login->getMessages();
             if (!is_array($messages)) $messages = array();

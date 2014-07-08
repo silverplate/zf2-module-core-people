@@ -286,6 +286,13 @@ implements InputFilterAwareInterface, ArraySerializableInterface
         }
 
         if (!empty($data['person'])) {
+            /**
+             * @todo There is right place to init new person object?
+             */
+            if (!$this->getPerson()) {
+                $this->setPerson(new Person());
+            }
+
             $this->getPerson()->exchangeArray($data['person']);
         }
     }
