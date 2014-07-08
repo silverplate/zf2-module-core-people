@@ -24,7 +24,7 @@ class User extends AbstractMapper
 
         if (count($personIds) > 0) {
             $l = $this->getPersonMapper()
-                      ->fetchAll(array('person_id' => $personIds))
+                      ->fetchAll(array('person_id' => array_unique($personIds)))
                       ->asArray();
 
             foreach ($users as $user) {
