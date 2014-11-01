@@ -18,12 +18,10 @@ class User extends AbstractMapper
      */
     public function fetchPersons($users, $_personObjectTypeId = null)
     {
-        $personIds = array();
-        foreach ($users as $user) {
-            if ($user->getPersonId()) {
+        $personIds = [];
+        foreach ($users as $user)
+            if ($user->getPersonId())
                 $personIds[] = $user->getPersonId();
-            }
-        }
 
         if (count($personIds) > 0) {
             $l = $this->getPersonMapper($_personObjectTypeId)

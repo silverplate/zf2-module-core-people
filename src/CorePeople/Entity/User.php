@@ -107,8 +107,17 @@ implements InputFilterAwareInterface, ArraySerializableInterface
      */
     public function setPassword($_password)
     {
+        $this->_password = static::computePassword($_password);
+    }
+
+    /**
+     * @param string $_password
+     * @return string
+     */
+    public static function computePassword($_password)
+    {
         $bcrypt = new Bcrypt();
-        $this->_password = $bcrypt->create($_password);
+        return $bcrypt->create($_password);
     }
 
     /**
