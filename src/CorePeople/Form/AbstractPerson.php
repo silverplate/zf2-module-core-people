@@ -82,6 +82,15 @@ abstract class AbstractPerson extends AbstractForm
             $ele->setValueOptions($options);
         }
 
+        /**
+         * @todo Подумать о том, чтобы вынести из ядра
+         */
+        $ele = new Element\Text('city_id');
+        $ele->setLabel('Город');
+        $ele->setAttribute('class', 'select2');
+        $ele->setAttribute('data-url', '/api/cities');
+        $this->add($ele);
+
         $ele = new Element\Text('position');
         $ele->setLabel('Вид деятельности');
         $ele->setOptions(array('description' => 'или&nbsp;должность'));
