@@ -118,6 +118,7 @@ abstract class AbstractPerson extends AbstractForm
 
         $ele = new Element\Number('rating');
         $ele->setLabel('Рейтинг');
+        $ele->setOption('input-class', 'col-sm-3');
         $this->add($ele);
     }
 }
