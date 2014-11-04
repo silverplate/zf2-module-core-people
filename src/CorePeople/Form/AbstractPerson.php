@@ -6,7 +6,7 @@ use Zend\Form\Element;
 use Zend\Form\Form;
 use Zend\Stdlib\Hydrator\ArraySerializable;
 use CoreControl\Form\AbstractForm;
-use CorePeople\Entity\AbstractPerson as Model;
+use People\Entity\Person as Model;
 
 abstract class AbstractPerson extends AbstractForm
 {

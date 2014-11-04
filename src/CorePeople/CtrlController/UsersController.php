@@ -2,7 +2,7 @@
 
 namespace CorePeople\CtrlController;
 
-use CoreControl\Controller\AbstractController;
+use Control\Controller\AbstractController;
 use CoreControl\Controller\SimpleFormTrait;
 use CorePeople\Entity\Person;
 
@@ -17,13 +17,13 @@ class UsersController extends AbstractController
 
     protected function _getMapper()
     {
-        return $this->srv('\CorePeople\Mapper\User');
+        return $this->_srv('\CorePeople\Mapper\User');
     }
 
     protected function _createForm()
     {
         /** @var \CorePeople\Form\User $form */
-        $form = $this->srv('\CorePeople\Form\User');
+        $form = $this->_srv('\CorePeople\Form\User');
         $form->bind($this->ent());
 
         return $form;
