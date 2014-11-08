@@ -165,6 +165,38 @@ implements InputFilterAwareInterface, ArraySerializableInterface
         return $this->_birthYear;
     }
 
+    public function getBirthDate()
+    {
+        if ($this->getBirthYear() && $this->getBirthDay()) {
+            list($d, $m) = explode('.', $this->getBirthDay());
+
+            if (\Ext\Date::checkDate($m, $d, $this->getBirthYear()))
+                return \mktime(0, 0, 0, $m, $d, $this->getBirthYear());
+        }
+
+        return false;
+    }
+
+    public function getYearsOld()
+    {
+        if (!$this->getBirthYear()) {
+            return false;
+        }
+
+        $years = (int) \date('Y') - $this->getBirthYear();
+        $birthDate = $this->getBirthDate();
+
+        if ($birthDate && (
+            \date('m', $birthDate) > \date('m') || (
+                \date('m', $birthDate) == \date('m') &&
+                \date('j', $birthDate) > date('j')
+            )
+
+        )) $years--;
+
+        return $years;
+    }
+
     /**
      * @param int $_creationTime
      */
@@ -229,16 +261,6 @@ implements InputFilterAwareInterface, ArraySerializableInterface
         return $this->_middleName;
     }
 
-    public function getTitle()
-    {
-        $name = trim($this->getLastName() . ' ' . $this->getFirstName());
-        $nickname = $this->getNickname();
-
-        if ($name == '' && $nickname == '') return $this->getId();
-        else if ($name != '') return $name;
-        else return $nickname;
-    }
-
     /**
      * @param string $_nickname
      */
@@ -253,6 +275,25 @@ implements InputFilterAwareInterface, ArraySerializableInterface
     public function getNickname()
     {
         return $this->_nickname;
+    }
+
+    public function getTitle()
+    {
+        $name = trim($this->getLastName() . ' ' . $this->getFirstName());
+        $nickname = $this->getNickname();
+
+        if ($name == '' && $nickname == '') return $this->getId();
+        else if ($name != '') return $name;
+        else return $nickname;
+    }
+
+    public function getFullName()
+    {
+        return trim(
+            $this->getLastName()  . ' ' .
+            $this->getFirstName() . ' ' .
+            $this->getMiddleName()
+        );
     }
 
     /**
