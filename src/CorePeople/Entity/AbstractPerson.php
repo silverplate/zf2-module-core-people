@@ -533,6 +533,8 @@ implements InputFilterAwareInterface, ArraySerializableInterface
             'rating',
             'sex_id',
             'is_published', // Alias to status_id
+            'person_id' => 'id',
+            'status_id',
         );
     }
 }
