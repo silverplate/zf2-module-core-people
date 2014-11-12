@@ -2,6 +2,7 @@
 
 namespace CorePeople\Entity;
 
+use Ext\String;
 use Zend\I18n\Validator\Int;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
@@ -294,6 +295,20 @@ implements InputFilterAwareInterface, ArraySerializableInterface
             $this->getFirstName() . ' ' .
             $this->getMiddleName()
         );
+    }
+
+    public function getShortName()
+    {
+        $name = $this->getLastName()
+              . ' '
+              . String::getPart($this->getFirstName(), 0, 1)
+              . '.';
+
+        if ($this->getMiddleName()) {
+            $name .= ' ' . String::getPart($this->getMiddleName(), 0, 1) . '.';
+        }
+
+        return $name;
     }
 
     /**
